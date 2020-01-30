@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSCP</title>
+
+</head>
+
+<body>
+<form name="floats">
+    <input name="float1"><br><br>
+    <input name="float2"><br><br>
+    <input name="float3"><br><br>
+    <input name="float4"><br><br>
+    <input name="float5"><br><br>
+    <input name="float6"><br><br>
+    <input name="float7"><br><br>
+    <input name="float8"><br><br>
+    <input name="float9"><br><br>
+    <input name="float0"><br><br>
+    <input type="button" value="Submit" onclick="validateForm()"> 
+</form>
+    <p id="avgFloat"></p>
+    <script>
+        function validateForm() {
+            var floats = document.forms["floats"];
+            var text = 0;
+            for (let i = 0; i < floats.length-1; i++) {
+                indFl = parseFloat(floats.elements[i].value);
+                text += indFl;
+                console.log(text);
+            }
+            avgFloar = text / 10;
+            document.getElementById("avgFloat").innerHTML = avgFloar;
+            
+        }
+        </script>
+</body>
+
+</html>
