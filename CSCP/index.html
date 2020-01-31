@@ -18,23 +18,41 @@
     <input name="float8"><br><br>
     <input name="float9"><br><br>
     <input name="float0"><br><br>
-    <input type="button" value="Submit" onclick="validateForm()"> 
+    <input type="button" value="Submit" onclick="avgFloat()"> 
 </form>
-    <p id="avgFloat"></p>
+<p id="avgFloat"></p>
+<form name="floatBorders">
+    <input name="minFloat"><br><br>
+    <input name="maxFloat"><br><br>
+    <input type="button" value="Submit" onclick="calculateOutcome()"> 
+</form>
+<p id="outcomeFloat"></p>
     <script>
-        function validateForm() {
+        function avgFloat() {
             var floats = document.forms["floats"];
             var text = 0;
             for (let i = 0; i < floats.length-1; i++) {
                 indFl = parseFloat(floats.elements[i].value);
                 text += indFl;
-                console.log(text);
             }
             avgFloar = text / 10;
             document.getElementById("avgFloat").innerHTML = avgFloar;
             
         }
-        </script>
+
+        function calculateOutcome(){
+            var minFloat = document.getElementsByName("minFloat")[0].value;
+            var maxFloat = document.getElementsByName("maxFloat")[0].value;
+            var avgFloat = document.getElementById("avgFloat").innerHTML;
+            document.getElementById("outcomeFloat").innerHTML = outcomeCalculation(minFloat,maxFloat,avgFloat);
+        }
+
+        function outcomeCalculation(minFloat,maxFloat,avgFloat){
+            var outcomeFloat = (Number(maxFloat) - Number(minFloat)) * Number(avgFloat) + Number(minFloat);
+            return outcomeFloat;
+        }
+        
+    </script>
 </body>
 
 </html>
