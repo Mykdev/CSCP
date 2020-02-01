@@ -18,7 +18,7 @@
     <input name="float8"><br><br>
     <input name="float9"><br><br>
     <input name="float0"><br><br>
-    <input type="button" value="Submit" onclick="avgFloat()"> 
+    <input type="button" value="Submit" onclick="getAvgFloat()"> 
 </form>
 <p id="avgFloat"></p>
 <form name="floatBorders">
@@ -28,28 +28,47 @@
 </form>
 <p id="outcomeFloat"></p>
     <script>
-        function avgFloat() {
+        function getAvgFloat() {
             var floats = document.forms["floats"];
             var text = 0;
             for (let i = 0; i < floats.length-1; i++) {
                 indFl = parseFloat(floats.elements[i].value);
                 text += indFl;
             }
-            avgFloar = text / 10;
-            document.getElementById("avgFloat").innerHTML = avgFloar;
-            
+            var avgFloat = text / 10;
+            var exteriorName = getExteriorName(avgFloat);
+            document.getElementById("avgFloat").innerHTML = avgFloat + " " + exteriorName;
+            return avgFloat;
         }
 
         function calculateOutcome(){
             var minFloat = document.getElementsByName("minFloat")[0].value;
             var maxFloat = document.getElementsByName("maxFloat")[0].value;
-            var avgFloat = document.getElementById("avgFloat").innerHTML;
-            document.getElementById("outcomeFloat").innerHTML = outcomeCalculation(minFloat,maxFloat,avgFloat);
+            var avgFloat = getAvgFloat();
+            var outcomeFloat = outcomeCalculation(minFloat,maxFloat,avgFloat);
+            var exteriorName = getExteriorName(outcomeFloat);
+            document.getElementById("outcomeFloat").innerHTML = outcomeFloat + " " + exteriorName;
         }
 
         function outcomeCalculation(minFloat,maxFloat,avgFloat){
             var outcomeFloat = (Number(maxFloat) - Number(minFloat)) * Number(avgFloat) + Number(minFloat);
             return outcomeFloat;
+        }
+
+        function getExteriorName(floatValue){
+            var exteriorName = "Was unable to determine ¯\\_(ツ)_/¯";
+            if(floatValue < 0.07){
+                exteriorName = "Factory New";
+            }else if(floatValue >= 0.07 && floatValue < 0.15){
+                exteriorName = "Minimal Ware";
+            }else if(floatValue >= 0.15 && floatValue < 0.38){
+                exteriorName = "Field Tested";
+            }else if(floatValue >= 0.38 && floatValue < 0.45){
+                exteriorName = "Well-Worn";
+            }else if(floatValue >= 0.45){
+                exteriorName = "Battle-Scarred";
+            }
+            return exteriorName;
         }
         
     </script>
