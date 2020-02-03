@@ -7,27 +7,66 @@
 </head>
 
 <body>
+    <p>Floats of used skins</p>
 <form name="floats">
-    <input name="float1"><br><br>
-    <input name="float2"><br><br>
-    <input name="float3"><br><br>
-    <input name="float4"><br><br>
-    <input name="float5"><br><br>
-    <input name="float6"><br><br>
-    <input name="float7"><br><br>
-    <input name="float8"><br><br>
-    <input name="float9"><br><br>
-    <input name="float0"><br><br>
+    F1 <input name="float1"><br><br>
+    F2 <input name="float2"><br><br>
+    F3 <input name="float3"><br><br>
+    F4 <input name="float4"><br><br>
+    F5 <input name="float5"><br><br>
+    F6 <input name="float6"><br><br>
+    F7 <input name="float7"><br><br>
+    F8 <input name="float8"><br><br>
+    F9 <input name="float9"><br><br>
+    F10 <input name="float0"><br><br>
     <input type="button" value="Submit" onclick="getAvgFloat()"> 
 </form>
 <p id="avgFloat"></p>
 <form name="floatBorders">
-    <input name="minFloat"><br><br>
-    <input name="maxFloat"><br><br>
+    Min Float <input name="minFloat"><br><br>
+    Max Flaot <input name="maxFloat"><br><br>
     <input type="button" value="Submit" onclick="calculateOutcome()"> 
 </form>
 <p id="outcomeFloat"></p>
+<h3>Avg Float Calculator</h3>
+<form name="avgFloatCalc">
+    Min Float <input name="minFloatExt"><br><br>
+    Max Flaot <input name="maxFloatExt"><br><br>
+    Select Exterior 
+    <select id="exteriorSelect">
+                        <option value="Factory New">Factory New</option>
+                        <option value="Minimal Ware">Minimal Ware</option>
+                        <option value="Field Tested">Field Tested</option>
+                        <option value="Well-Worn">Well-Worn</option>
+                        <option value="Battle-Scarred">Battle-Scarred</option>
+                    </select>
+    <input type="button" value="Submit" onclick="calculatAvgFlaot()"> 
+</form>
+<p id="avgFloatNeeded"></p>
     <script>
+        
+        function calculatAvgFlaot(){
+            var minFloat = document.getElementsByName("minFloatExt")[0].value;
+            var maxFloat = document.getElementsByName("maxFloatExt")[0].value;
+            var outcomeFloat = getExteriorFloat(document.getElementById("exteriorSelect").value);
+            var avgFloat = (Number(outcomeFloat) - Number(minFloat))/(Number(maxFloat) - Number(minFloat));
+            document.getElementById("avgFloatNeeded").innerHTML = "Avg Float Needed: <" + avgFloat;
+        }
+        function getExteriorFloat(exteriorName){
+            var exteriorFloat = "Was unable to determine ¯\\_(ツ)_/¯";
+            if(exteriorName =="Factory New"){
+                exteriorFloat = 0.07;
+            }else if(exteriorName =="Minimal Ware"){
+                exteriorFloat = 0.15;
+            }else if(exteriorName =="Field Tested"){
+                exteriorFloat = 0.15;
+            }else if(exteriorName =="Well-Worn"){
+                exteriorFloat = 0.38;
+            }else if(exteriorName =="Battle-Scarred"){
+                exteriorFloat = 0.45;
+            }
+            return exteriorFloat;
+        }
         function getAvgFloat() {
             var floats = document.forms["floats"];
             var text = 0;
@@ -37,7 +76,7 @@
             }
             var avgFloat = text / 10;
             var exteriorName = getExteriorName(avgFloat);
-            document.getElementById("avgFloat").innerHTML = avgFloat + " " + exteriorName;
+            document.getElementById("avgFloat").innerHTML ="Avg Float: " + avgFloat + " " + exteriorName;
             return avgFloat;
         }
 
@@ -47,7 +86,7 @@
             var avgFloat = getAvgFloat();
             var outcomeFloat = outcomeCalculation(minFloat,maxFloat,avgFloat);
             var exteriorName = getExteriorName(outcomeFloat);
-            document.getElementById("outcomeFloat").innerHTML = outcomeFloat + " " + exteriorName;
+            document.getElementById("outcomeFloat").innerHTML ="Float of the Outcome: " + outcomeFloat + " " + exteriorName;
         }
 
         function outcomeCalculation(minFloat,maxFloat,avgFloat){
