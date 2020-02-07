@@ -1,11 +1,12 @@
  
-            function calculatAvgFlaot(){
+            function calculateAvgFlaot(){
                 var minFloat = document.getElementsByName("minFloatExt")[0].value;
                 var maxFloat = document.getElementsByName("maxFloatExt")[0].value;
                 var outcomeFloat = getExteriorFloat(document.getElementById("exteriorSelect").value);
                 var avgFloat = (Number(outcomeFloat) - Number(minFloat))/(Number(maxFloat) - Number(minFloat));
-                document.getElementById("avgFloatNeeded").innerHTML = "Avg Float Needed: <" + avgFloat;
+                document.getElementById("avgFloatNeeded").innerHTML = "Avg Float Needed: <" + avgFloat + " " + getExteriorName(avgFloat);
             }
+
             function getExteriorFloat(exteriorName){
                 var exteriorFloat = "Was unable to determine ¯\\_(ツ)_/¯";
                 if(exteriorName =="Factory New"){
@@ -63,5 +64,3 @@
                 }
                 return exteriorName;
             }
-
-            
